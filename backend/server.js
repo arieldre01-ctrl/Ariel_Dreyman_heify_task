@@ -1,12 +1,14 @@
 const express = require('express');
+const cors = require('cors');
+const taskRoutes = require('./routes/tasks');
+
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('task manager api');
-});
+app.use('/api/tasks', taskRoutes);
 
 app.listen(4000, () => {
-  console.log('server on port 4000');
+  console.log('server running on http://localhost:4000');
 });
