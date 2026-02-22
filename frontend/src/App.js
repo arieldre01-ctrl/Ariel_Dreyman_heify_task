@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import TaskItem from './components/TaskItem';
+import TaskForm from './components/TaskForm';
 import TaskFilter from './components/TaskFilter';
-import { getTasks, createTask, deleteTask, toggleTask } from './services/api';
+import { getTasks, createTask, updateTask, deleteTask, toggleTask } from './services/api';
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState('all');
+  const [editTask, setEditTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    loadTasks();
-  }, []);
+  useEffect(() => { loadTasks(); }, []);
 
   async function loadTasks() {
     try {
@@ -22,6 +22,25 @@ function App() {
       setError('Could not load tasks. Is the backend running?');
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function handleCreate(data) {
+    try {
+      const task = await createTask(data);
+      setTasks(prev => [...prev, task]);
+    } catch (e) {
+      setError(e.message);
+    }
+  }
+
+  async function handleUpdate(data) {
+    try {
+      const updated = await updateTask(editTask.id, data);
+      setTasks(prev => prev.map(t => t.id === updated.id ? updated : t));
+      setEditTask(null);
+    } catch (e) {
+      setError(e.message);
     }
   }
 
@@ -50,15 +69,28 @@ function App() {
   }
 
   return (
-    <div>
-      <h1>Task Manager</h1>
-      {error && <p style={{color:'red'}}>{error}</p>}
-      <TaskFilter current={filter} onChange={setFilter} />
-      {loading ? <p>Loading...</p> : (
-        getFiltered().map(t => (
-          <TaskItem key={t.id} task={t} onToggle={handleToggle} onEdit={() => {}} onDelete={handleDelete} />
-        ))
-      )}
+    <div className="app">
+      <header className="app-header">
+        <h1>Task Manager</h1>
+        <p className="subtitle">Keep track of what matters</p>
+      </header>
+      <main className="app-main">
+        {error && <div className="error-banner">{error}<button onClick={() => setError('')}>x</button></div>}
+        <section className="form-section">
+          <TaskForm onSubmit={editTask ? handleUpdate : handleCreate} editTask={editTask} onCancel={() => setEditTask(null)} />
+        </section>
+        <section className="tasks-section">
+          <div className="tasks-header">
+            <h2>Tasks ({getFiltered().length})</h2>
+            <TaskFilter current={filter} onChange={setFilter} />
+          </div>
+          {loading ? <div className="loading">Loading tasks...</div> : (
+            getFiltered().map(t => (
+              <TaskItem key={t.id} task={t} onToggle={handleToggle} onEdit={setEditTask} onDelete={handleDelete} />
+            ))
+          )}
+        </section>
+      </main>
     </div>
   );
 }
