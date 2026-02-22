@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import TaskItem from './components/TaskItem';
+import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
 import TaskFilter from './components/TaskFilter';
 import { getTasks, createTask, updateTask, deleteTask, toggleTask } from './services/api';
@@ -29,9 +29,7 @@ function App() {
     try {
       const task = await createTask(data);
       setTasks(prev => [...prev, task]);
-    } catch (e) {
-      setError(e.message);
-    }
+    } catch (e) { setError(e.message); }
   }
 
   async function handleUpdate(data) {
@@ -39,27 +37,21 @@ function App() {
       const updated = await updateTask(editTask.id, data);
       setTasks(prev => prev.map(t => t.id === updated.id ? updated : t));
       setEditTask(null);
-    } catch (e) {
-      setError(e.message);
-    }
+    } catch (e) { setError(e.message); }
   }
 
   async function handleDelete(id) {
     try {
       await deleteTask(id);
       setTasks(prev => prev.filter(t => t.id !== id));
-    } catch (e) {
-      setError('Could not delete task');
-    }
+    } catch (e) { setError('Could not delete task'); }
   }
 
   async function handleToggle(id) {
     try {
       const updated = await toggleTask(id);
       setTasks(prev => prev.map(t => t.id === updated.id ? updated : t));
-    } catch (e) {
-      setError('Could not update task');
-    }
+    } catch (e) { setError('Could not update task'); }
   }
 
   function getFiltered() {
@@ -85,9 +77,7 @@ function App() {
             <TaskFilter current={filter} onChange={setFilter} />
           </div>
           {loading ? <div className="loading">Loading tasks...</div> : (
-            getFiltered().map(t => (
-              <TaskItem key={t.id} task={t} onToggle={handleToggle} onEdit={setEditTask} onDelete={handleDelete} />
-            ))
+            <TaskList tasks={getFiltered()} onToggle={handleToggle} onEdit={setEditTask} onDelete={handleDelete} />
           )}
         </section>
       </main>
