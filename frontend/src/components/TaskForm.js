@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/TaskForm.css';
 
 function TaskForm({ onSubmit, editTask, onCancel }) {
   const [title, setTitle] = useState('');

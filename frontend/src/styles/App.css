@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f5f2eb;
+  --bg2: #ede9df;
+  --text: #1a1a1a;
+  --text-muted: #7a7068;
+  --accent: #c84b31;
+  --border: #d9d4c7;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.app { max-width: 1100px; margin: 0 auto; padding: 0 20px 60px; }
+.app-header { text-align: center; padding: 48px 0 32px; border-bottom: 2px solid var(--border); margin-bottom: 40px; }
+.app-header h1 { font-family: 'DM Serif Display', serif; font-size: 3rem; letter-spacing: -1px; }
+.subtitle { color: var(--text-muted); font-size: 1rem; margin-top: 6px; }
+.app-main { display: flex; flex-direction: column; gap: 40px; }
+.error-banner { background: #fde8e4; border: 1px solid #f5c6bd; border-radius: 8px; padding: 12px 16px; color: #a52a1a; display: flex; justify-content: space-between; align-items: center; }
+.error-banner button { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #a52a1a; }
+.loading { text-align: center; padding: 40px; color: var(--text-muted); }
+.tasks-section { display: flex; flex-direction: column; gap: 20px; }
+.tasks-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.tasks-header h2 { font-size: 1.3rem; font-weight: 600; }
+@media (max-width: 600px) { .app-header h1 { font-size: 2rem; } }

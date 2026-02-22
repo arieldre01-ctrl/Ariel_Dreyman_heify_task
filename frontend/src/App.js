@@ -3,6 +3,7 @@ import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
 import TaskFilter from './components/TaskFilter';
 import { getTasks, createTask, updateTask, deleteTask, toggleTask } from './services/api';
+import './styles/App.css';
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -60,6 +61,8 @@ function App() {
     return tasks;
   }
 
+  const filteredTasks = getFiltered();
+
   return (
     <div className="app">
       <header className="app-header">
@@ -67,17 +70,24 @@ function App() {
         <p className="subtitle">Keep track of what matters</p>
       </header>
       <main className="app-main">
-        {error && <div className="error-banner">{error}<button onClick={() => setError('')}>x</button></div>}
+        {error && (
+          <div className="error-banner">
+            {error}
+            <button onClick={() => setError('')}>×</button>
+          </div>
+        )}
         <section className="form-section">
           <TaskForm onSubmit={editTask ? handleUpdate : handleCreate} editTask={editTask} onCancel={() => setEditTask(null)} />
         </section>
         <section className="tasks-section">
           <div className="tasks-header">
-            <h2>Tasks ({getFiltered().length})</h2>
+            <h2>Tasks ({filteredTasks.length})</h2>
             <TaskFilter current={filter} onChange={setFilter} />
           </div>
-          {loading ? <div className="loading">Loading tasks...</div> : (
-            <TaskList tasks={getFiltered()} onToggle={handleToggle} onEdit={setEditTask} onDelete={handleDelete} />
+          {loading ? (
+            <div className="loading">Loading tasks...</div>
+          ) : (
+            <TaskList tasks={filteredTasks} onToggle={handleToggle} onEdit={setEditTask} onDelete={handleDelete} />
           )}
         </section>
       </main>

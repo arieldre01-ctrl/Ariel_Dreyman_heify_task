@@ -1,0 +1,25 @@
+.task-card { background: #fff; border-radius: 12px; padding: 22px 24px; border: 1.5px solid var(--border); box-shadow: var(--shadow); transition: transform 0.18s, box-shadow 0.18s; width: 340px; min-height: 200px; display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+.task-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.11); }
+.task-card.completed { opacity: 0.7; background: var(--bg2); }
+.task-card.completed .task-title { text-decoration: line-through; color: var(--text-muted); }
+.task-card.priority-high { border-left: 4px solid #e63946; }
+.task-card.priority-medium { border-left: 4px solid #f4a261; }
+.task-card.priority-low { border-left: 4px solid #52b788; }
+.task-card-header { display: flex; justify-content: space-between; align-items: center; }
+.priority-badge { font-size: 0.78rem; font-weight: 500; padding: 3px 10px; border-radius: 20px; }
+.priority-badge.high { background: #fde8ea; color: #c1121f; }
+.priority-badge.medium { background: #fef3e2; color: #e07b00; }
+.priority-badge.low { background: #e8f5ee; color: #2d6a4f; }
+.done-badge { font-size: 0.78rem; background: #e8f5ee; color: #2d6a4f; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+.task-title { font-size: 1.05rem; font-weight: 600; line-height: 1.4; }
+.task-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; flex: 1; }
+.task-date { font-size: 0.78rem; color: #b0a898; }
+.task-actions { display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+.task-actions button { font-size: 0.82rem; padding: 5px 12px; border-radius: 6px; cursor: pointer; border: 1.5px solid transparent; font-family: 'DM Sans', sans-serif; transition: all 0.15s; }
+.btn-toggle { background: #2d6a4f; color: #fff; border-color: #2d6a4f !important; }
+.btn-toggle:hover { background: #1b4332; }
+.btn-toggle.undo { background: var(--bg2); color: var(--text); border-color: var(--border) !important; }
+.btn-edit { background: #fff; color: var(--text); border-color: var(--border) !important; }
+.btn-edit:hover { border-color: #888 !important; }
+.btn-delete { background: #fff; color: #c84b31; border-color: #f5c6bd !important; }
+.btn-delete:hover { background: #fde8e4; }

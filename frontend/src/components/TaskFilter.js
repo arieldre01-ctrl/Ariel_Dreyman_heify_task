@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/TaskFilter.css';
 
 function TaskFilter({ current, onChange }) {
   const filters = ['all', 'pending', 'completed'];

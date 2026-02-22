@@ -1,0 +1,4 @@
+.filter-bar { display: flex; gap: 8px; }
+.filter-btn { border: 1.5px solid var(--border); border-radius: 20px; padding: 6px 18px; font-size: 0.87rem; font-family: 'DM Sans', sans-serif; background: #fff; cursor: pointer; color: var(--text-muted); transition: all 0.18s; }
+.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 500; }
